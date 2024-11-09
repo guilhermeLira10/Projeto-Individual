@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Login</title>
+  <style>
+    /* Estilo do layout */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+    }
+
+    .login-container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .login-form {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+    }
+
+    .login-form h2 {
+      font-size: 2em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .login-form input {
+      width: 100%;
+      max-width: 300px;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .login-form button {
+      width: 100%;
+      max-width: 300px;
+      padding: 10px;
+      border: none;
+      background-color: #007BFF;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .login-form button:hover {
+      background-color: #0056b3;
+    }
+
+    .login-info {
+      flex: 1;
+      background-color: #f0f2f5; /* Cor neutra */
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .login-info h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .login-info p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <!-- Formulário de Login -->
+    <div class="login-form">
+      <h2>Login</h2>
+      <form>
+        <input type="text" placeholder="Usuário" required>
+        <input type="password" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+
+    <!-- Informação do Projeto -->
+    <div class="login-info">
+      <div>
+        <h2>Bem-vindo ao Desafio de Conhecimento!</h2>
+        <p>Desafie seu conhecimento, explore novos temas e divirta-se enquanto aprende. Prepare-se para alcançar o topo do ranking e superar seus limites!</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* Estilos básicos */
+.card-container {
+  width: 400px;
+  height: 350px;
+  perspective: 1000px; /* Necessário para o efeito 3D */
+  display: flex;
+  gap: 24px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-container .card:hover {
+  transform: rotateY(180deg); /* Rotação para virar o card */
+}
+
+/* Frente e verso do card */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card-front.ods13 {
+  background-image: url(./assets/imgs/ods/SDG-13.svg); 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card-back {
+  background-color: #2ecc71; /* Cor do verso do card */
+  transform: rotateY(180deg); /* Faz o verso começar "de costas" */
+}
+
+</style>
+<body>
+    <div class="card-container">
+        <div class="card">
+          <div class="card-front ods13">
+            <!-- <img src="assets/imgs/ods/SDG-13.svg" alt=""> -->
+          </div>
+          <div class="card-back">
+            <h2>Verso</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia voluptas tempora eligendi. A vitae adipisci reprehenderit aliquam blanditiis perspiciatis alias, quo, modi accusamus porro totam reiciendis consectetur placeat laborum facere!</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-front ods13">
+            <!-- <img src="assets/imgs/ods/SDG-13.svg" alt=""> -->
+          </div>
+          <div class="card-back">
+            <h2>Verso</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia voluptas tempora eligendi. A vitae adipisci reprehenderit aliquam blanditiis perspiciatis alias, quo, modi accusamus porro totam reiciendis consectetur placeat laborum facere!</p>
+          </div>
+        </div>
+      </div>
+      
+</body>
+</html>
