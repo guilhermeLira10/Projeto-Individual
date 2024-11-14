@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemplo - Quiz</title>
     <link rel="stylesheet" href="style.css">
+    <script src="../js/sessao.js"></script>
 </head>
 
 
-<body onload="onloadEsconder()">
+<body onload="onloadEsconder(), listar()">
     <div id="pontuacaoEJogo">
         <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
 
@@ -63,16 +64,47 @@
             <div id="botoes" class="flex-colunar padding-8">
                 <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
+                <!-- <butt on onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
                 <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
             </div>
 
         </div>
     </div>
+    <div id = 'div_resultado'>
+        <h1>score</h1>
+        <ul id="ul_rank">
+
+        </ul>
+    </div>
+
 </body>
 
 </html>
 <script>
+    function listar(){
+        var lista = '';
+        fetch("/score/listar").then(function (resposta) {
+            if(resposta.ok){
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("rank");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta){
+                    resposta.forEach(element => {
+                        console.log(element.Nome)
+                        ul_rank.innerHTML += `  
+                            <li>
+                                <b>${element.Nome}: </b>
+                                <span>${element.Pontuação}</span>
+                            </li>`
+                    });
+                })
+            }
+        })
+    }
     const listaDeQuestoes = [
 
         {
@@ -141,18 +173,11 @@
             pergunta: "O Golf Mk4 no Brasil foi conhecido por trazer acabamentos premium para o segmento. Qual desses materiais era encontrado no interior?",
             alternativaA: "Couro e acabamento soft touch",
             alternativaB: "Plástico rígido em todas as partes",
-            alternativaC: "Tecido de baixo custo",
+            alternativaC: "Tecido de Alto custo",
             alternativaD: "Alumínio em excesso",
             alternativaCorreta: "alternativaA"
         },
-        {
-            pergunta: "O Golf Mk4 é lembrado até hoje no Brasil por sua qualidade de construção. Qual característica era um diferencial do modelo em relação a seus concorrentes na época?",
-            alternativaA: "Acabamento de alta qualidade e ótima dirigibilidade",
-            alternativaB: "Preço reduzido em todas as versões",
-            alternativaC: "Foco exclusivo em esportividade",
-            alternativaD: "Pintura externa fosca",
-            alternativaCorreta: "alternativaA"
-        },
+
         {
             pergunta: "O Volkswagen Golf foi produzido no Brasil em qual fábrica da Volkswagen?",
             alternativaA: "Fábrica de Taubaté",
@@ -160,6 +185,15 @@
             alternativaC: "Fábrica de São José dos Pinhais",
             alternativaD: "Fábrica de Resende",
             alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "O Golf Mk4 é lembrado até hoje no Brasil por sua qualidade de construção. Qual característica era um diferencial do modelo em relação a seus concorrentes na época?",
+            alternativaA: "Acabamento de alta qualidade e ótima dirigibilidade",
+            alternativaB: "Preço reduzido em todas as versões",
+            alternativaC: "Foco exclusivo em esportividade",
+            alternativaD: "Pintura externa fosca",
+            alternativaCorreta: "alternativaA"
         },
 
     ]
@@ -333,7 +367,6 @@
 
         textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
 
-
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
         document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
@@ -344,6 +377,33 @@
         btnSubmeter.disabled = true
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = false
+        salvarScore()
 
     }
+
+    function salvarScore(){
+        console.log(sessionStorage.ID_USUARIO)
+        var corpo = {
+            qtdPontos: pontuacaoFinal,
+        }
+        fetch(`/score/inserirPontuacao/${sessionStorage.ID_USUARIO}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                window.alert("Score atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "/dashboard/quizz.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar salvar o score! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+    
 </script>

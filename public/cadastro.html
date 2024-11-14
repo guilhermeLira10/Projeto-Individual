@@ -15,30 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body onload="listar()">
-  <!--header inicio-->
-  <!-- <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
-    </div>
-  </div> -->
-  <!--header fim-->
-
+<body>
   <div class="cadastro">
     <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
@@ -50,14 +27,6 @@
         <h2>Comece Agora!</h2>
         <span>Registre-se e faça parte de algo incrível!</span>
         <div class="formulario">
-          <!-- <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div> -->
-          <!-- <div class="campo">
-            <span>CPF:</span>
-            <input id="cpf_input" type="text" placeholder="Insira aqui seu cpf" />
-          </div> -->
           <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
@@ -82,6 +51,8 @@
               <option value="Golf mk2">Golf mk2</option>
               <option value="Golf mk3">Golf mk3</option>
               <option value="Golf mk4">Golf mk4</option>
+              <option value="Golf mk4">Golf mk5</option>
+              <option value="Golf mk4">Golf mk6</option>
               <option value="Golf mk7">Golf mk7</option>
               <option value="Golf mk8">Golf mk8</option>
             </select>
@@ -97,46 +68,26 @@
       </div>
     </div>
   </div>
-
-  <!--footer inicio-->
-  <!-- <div class="footer">
-    <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
-    </div>
-  </div> -->
-  <!--footer fim-->
 </body>
 
 </html>
 
 <script>
 
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
   let listaEmpresasCadastradas = [];
 
   function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var favorito = select_favorito.value;
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    // var codigoVar = codigo_input.value;
-    // var idEmpresaVincular
-
-    // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == ""  ||
       favorito == "" 
-      // ||
-      // codigoVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -175,19 +126,6 @@
       setInterval(sumirMensagem, 5000);
     }
 
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-    //   if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-    //     idEmpresaVincular = listaEmpresasCadastradas[i].id
-    //     console.log("Código de ativação válido.");
-    //     break;
-    //   } else {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-    //     finalizarAguardar();
-    //   }
-    // }
-
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
@@ -195,13 +133,10 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
         favoritoServer: favorito
-        // idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {

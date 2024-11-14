@@ -3,7 +3,6 @@ function validarSessao() {
     var email = sessionStorage.EMAIL_USUARIO;
     var nome = sessionStorage.NOME_USUARIO;
     var favorito = sessionStorage.FAVORITO_USUARIO;
-    console.log(favorito)
 
     var b_usuario = document.getElementById("b_usuario");
     var b_favorito = document.getElementById("b_favorito");
