@@ -5,76 +5,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemplo - Quiz</title>
+    <link rel="stylesheet" href="quizz.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./../css/dashboards.css">  
+    <link rel="stylesheet" href="./../css/estilo.css" />
     <script src="../js/sessao.js"></script>
 </head>
 
 
-<body onload="onloadEsconder(), listar()">
-    <div id="pontuacaoEJogo">
-        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+<body onload="validarSessao(), onloadEsconder(), listar()">
+    
+    <div class="janela">
 
-        <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
-            <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
-                <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
-                <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
+        <div class="header-left dash-header">
+
+            <h1>GolfPedia</h1>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
-            <div id="pontuacaoFinalJogo" class="flex-colunar padding-8">
-                <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
-                    <span id="spanPontuacaoFinal">***</span>
-                </span>
-                <span id="msgFinal" class="width-fit-content">***</span>
+            <div class="hello">
+                <h3><span id="b_favorito">Favorito</span></h3>
             </div>
-        </div>
+            
 
-        <div id="jogo" class="width-fit-content flex-colunar border-secondary">
-
-            <div id="infoQuestao" class="padding-8">
-                <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
-                    questões.</span>
+            <div class="btn-nav">
+                <h3>Aquários</h3>
             </div>
 
-            <div id="perguntaDaQuestaoAtual" class="padding-8">
-                <span id="spanQuestaoExibida" class="text-bold"></span>
+            <div class="btn-nav">
+                <a href="./dashboard.html">
+                    <h3>Gráficos</h3>
+                </a>
+            </div>
+            <div class="btn-nav">
+                <a href="./quizz.html">
+                    <h3>Quizz</h3>
+                </a>
+            </div>
+            <div class="btn-nav">
+                <a href="./publicacao.html">
+                    <h3>Galeria</h3>
+                </a>
             </div>
 
-            <div id="infoAlternativas" class="padding-8">
-                <span><em>Escolha uma opção dentre as abaixo:</em></span>
+            <div class="btn-nav">
+                <a href="./mural.html">
+                    <h3>Mural de Avisos</h3>
+                </a>
             </div>
 
-            <div id="opcoes" class="flex-colunar padding-8">
-                <span>
-                    <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
-                    <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
-                </span>
-                <span>
-                    <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
-                    <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
-                </span>
-                <span>
-                    <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
-                    <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
-                </span>
-                <span>
-                    <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
-                    <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
-                </span>
-            </div>
-
-            <div id="botoes" class="flex-colunar padding-8">
-                <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
-                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                <!-- <butt on onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
             </div>
 
         </div>
-    </div>
-    <div id = 'div_resultado'>
-        <h1>score</h1>
-        <ul id="ul_rank">
+        <div class="dash-right">
+            <div id="pontuacaoEJogo">
+                <h1 id="titulo_quizz">Teste seu conhecimento</h1>
+                <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+    
+                <div id="pontuacao" class="flex-colunar width-fit-content">
+                    <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+                        <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
+                        <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
+                    </div>
+                    <div id="pontuacaoFinalJogo" class="flex-colunar padding-8">
+                        <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
+                            <span id="spanPontuacaoFinal">***</span>
+                        </span>
+                        <span id="msgFinal" class="width-fit-content">***</span>
+                    </div>
+                </div>
+    
+                <div id="jogo" class="flex-colunar">
+    
+                    <div class="container_pergunta">
 
-        </ul>
+                        <div id="infoQuestao" class="padding-8">
+                            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                                questões.</span>
+                        </div>
+        
+                        <div id="perguntaDaQuestaoAtual" class="padding-8">
+                            <span id="spanQuestaoExibida" class="text-bold"></span>
+                        </div>
+        
+                        <div id="infoAlternativas" class="padding-8">
+                            <span><em>Escolha uma opção dentre as abaixo:</em></span>
+                        </div>
+        
+                    </div>
+                    <div id="opcoes" class="flex-colunar padding-8">
+                        <span class="quiz-option">
+                            <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" onclick="submeter()"/>
+                            <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                        </span>
+                        <span class="quiz-option">
+                            <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" onclick="submeter()"/>
+                            <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                        </span>
+                        <span class="quiz-option">
+                            <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" onclick="submeter()"/>
+                            <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                        </span>
+                        <span class="quiz-option">
+                            <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" onclick="submeter()"/>
+                            <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                        </span>
+                    </div>
+    
+                    <div id="botoes" class=" padding-8">
+                        <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+                        <button onclick="avancar()" id="btnProx" disabled>Avançar</button>
+                        <!-- <butt onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
+                        <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+                    </div>
+    
+                </div>
+            </div>
+            <div id='div_resultado' class="div_rank">
+                <h1>Score</h1>
+                <ol id="ol_rank">
+    
+                </ol>
+            </div>
+        </div>
+
     </div>
 
 </body>
@@ -95,10 +152,12 @@
                 resposta.json().then(function (resposta){
                     resposta.forEach(element => {
                         console.log(element.Nome)
-                        ul_rank.innerHTML += `  
+                        ol_rank.innerHTML += `  
                             <li>
-                                <b>${element.Nome}: </b>
-                                <span>${element.Pontuação}</span>
+                                <div class="pontuacao">
+                                    <b>${element.Nome}: </b>
+                                    <span>${element.Pontuação}</span>
+                                </div>
                             </li>`
                     });
                 })
@@ -117,12 +176,12 @@
         },
 
         {
-            pergunta: "O e-Golf, marcou a entrada do modelo no segmento de veículos elétricos, combinando um motor totalmente elétrico com a estrutura conhecida do Golf. Foi lançado em que ano ?",
+            pergunta: "O Golf GTE, marcou a entrada do modelo no segmento de veículos elétricos, combinando um motor totalmente elétrico com a estrutura conhecida do Golf. Foi lançado em que ano ?",
             alternativaA: "2012",
             alternativaB: "2020",
             alternativaC: "2024",
             alternativaD: "2014",
-            alternativaCorreta: "alternativaD"
+            alternativaCorreta: "alternativaB"
         },
 
         {
@@ -145,11 +204,11 @@
         },
 
         {
-            pergunta: "Qual foi a geração do Golf a introduzir o modelo elétrico e-Golf?",
-            alternativaA: "Golf Mk6",
+            pergunta: "Qual foi a geração do Golf a introduzir o modelo GTE?",
+            alternativaA: "Golf Mk4",
             alternativaB: "Golf Mk7",
             alternativaC: "Golf Mk8",
-            alternativaD: "Golf Mk5",
+            alternativaD: "Golf Mk7.5",
             alternativaCorreta: "alternativaB"
         },
 
@@ -189,11 +248,11 @@
 
         {
             pergunta: "O Golf Mk4 é lembrado até hoje no Brasil por sua qualidade de construção. Qual característica era um diferencial do modelo em relação a seus concorrentes na época?",
-            alternativaA: "Acabamento de alta qualidade e ótima dirigibilidade",
+            alternativaA: "Pintura externa fosca",
             alternativaB: "Preço reduzido em todas as versões",
             alternativaC: "Foco exclusivo em esportividade",
-            alternativaD: "Pintura externa fosca",
-            alternativaCorreta: "alternativaA"
+            alternativaD: "Acabamento de alta qualidade e ótima dirigibilidade",
+            alternativaCorreta: "alternativaD"
         },
 
     ]
@@ -210,12 +269,16 @@
     function onloadEsconder() {
         document.getElementById('pontuacao').style.display = "none"
         document.getElementById('jogo').style.display = "none"
+        document.getElementById('btnSubmeter').style.display = "none"
+        document.getElementById('btnTentarNovamente').style.display = "none"
     }
-
+    
     function iniciarQuiz() {
-        document.getElementById('pontuacao').style.display = "flex"
+        document.getElementById('div_resultado').style.display = "none"
         document.getElementById('jogo').style.display = "flex"
         document.getElementById('btnIniciarQuiz').style.display = "none"
+        document.getElementById('titulo_quizz').style.display = "none"
+        
 
         document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
 
@@ -225,6 +288,7 @@
         btnProx.disabled = true
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = true
+        
     }
 
     function preencherHTMLcomQuestaoAtual(index) {
@@ -235,7 +299,7 @@
         console.log(questaoAtual)
         document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
         document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
-        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoUm").innerHTML = `${questaoAtual.alternativaA}`;
         document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
         document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
         document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
@@ -353,7 +417,7 @@
         const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
 
         if (porcentagemFinalDeAcertos <= 0.3) {
-            textoParaMensagemFinal = "Parece que você não estudou..."
+            textoParaMensagemFinal = "Parece que você não foi muito bem..."
             classComCoresParaMensagemFinal = "text-danger-with-bg"
         }
         else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
@@ -383,6 +447,9 @@
 
     function salvarScore(){
         console.log(sessionStorage.ID_USUARIO)
+        document.getElementById('div_resultado').style.display = "flex"
+        document.getElementById('jogo').style.display = "none"
+        document.getElementById('pontuacao').style.display = "flex";
         var corpo = {
             qtdPontos: pontuacaoFinal,
         }
@@ -394,7 +461,7 @@
             body: JSON.stringify(corpo)
         }).then(function (resposta) {
             if (resposta.ok) {
-                window.alert("Score atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.alert("Score atualizado com sucesso pelo usuario: " + sessionStorage.getItem("NOME_USUARIO") + "!");
                 window.location = "/dashboard/quizz.html"
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");

@@ -1,0 +1,74 @@
+#pontuacao{
+    
+    margin: 0 auto;
+}
+
+div#pontuacaoEJogo {
+    width: 60%;
+    text-align: center;
+    align-self: center;
+}
+
+.div_rank {
+    width: 300px;
+    border: solid 1px #304875;
+    color: #304875;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    margin: 24px;
+}
+.div_rank h1{
+    margin: 0;
+}
+.container_pergunta{
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(12,12,59,1) 35%, rgba(44,51,122,1) 100%);
+    border-radius: 10px;
+    margin: 10px;
+    color: white;
+}
+
+.quiz-option label {
+    font-weight: 600;
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #95A7C9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quiz-option label:hover {
+    background-color: #12254A;
+    color: white;
+}
+
+.quiz-option input[type="radio"] {
+    display: none;
+    /* Oculta o input radio */
+}
+
+/* Estilo quando o input radio está marcado */
+.quiz-option input[type="radio"]:checked+label {
+    display: block;
+    background-color: #ce6706;
+    color: white;
+}
+
+#btnProx{
+    background-color: rgb(21, 110, 21);
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    width: 50%;
+}
+#btnProx:hover{
+    background-color: rgb(15, 75, 15);
+    transition: 0.3s;
+}
