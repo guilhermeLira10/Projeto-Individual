@@ -32,6 +32,10 @@
             <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
           <div class="campo">
+            <span>Username:</span>
+            <input id="username_input" type="text" placeholder="Nome de usuario" />
+          </div>
+          <div class="campo">
             <span>E-mail:</span>
             <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
           </div>
@@ -46,7 +50,7 @@
           <div class="campo">
             <span>Seu Golf favorito:</span>
             <select name="" id="select_favorito">
-              <option value="#" selected disabled >Selecione</option>
+              <option value="#" selected disabled>Selecione</option>
               <option value="Golf mk1">Golf mk1</option>
               <option value="Golf mk2">Golf mk2</option>
               <option value="Golf mk3">Golf mk3</option>
@@ -79,15 +83,17 @@
   function cadastrar() {
     var favorito = select_favorito.value;
     var nomeVar = nome_input.value;
+    var usernameVar = username_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     if (
       nomeVar == "" ||
+      usernameVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == ""  ||
-      favorito == "" 
+      confirmacaoSenhaVar == "" ||
+      favorito == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -96,33 +102,33 @@
       finalizarAguardar();
       return false;
 
-    }else if(nomeVar.length <= 1){
+    } else if (nomeVar.length <= 1) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = "(Nome invalido)"
       finalizarAguardar();
       return false;
 
-    }else if(!emailVar.includes("@") || !emailVar.includes(".")){
+    } else if (!emailVar.includes("@") || !emailVar.includes(".")) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = "(E-mail invalido! deve conter '@' e ''.')";
       finalizarAguardar();
       return false;
-    }else if(senhaVar.length < 6){
+    } else if (senhaVar.length < 6) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = "(Senha invalida!A senha deve ter ao menos 6 caracteres)";
       finalizarAguardar();
       return false;
-    }else if(confirmacaoSenhaVar != senhaVar){
+    } else if (confirmacaoSenhaVar != senhaVar) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = "(As senhas não são iguais)";
       finalizarAguardar();
       return false;
-    }else if(favorito == "#"){
+    } else if (favorito == "#") {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = "(Selecione seu golf favorito)";
       finalizarAguardar();
       return false;
-    }else {
+    } else {
       setInterval(sumirMensagem, 5000);
     }
 
@@ -134,6 +140,7 @@
       },
       body: JSON.stringify({
         nomeServer: nomeVar,
+        usernameServer: usernameVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
         favoritoServer: favorito
