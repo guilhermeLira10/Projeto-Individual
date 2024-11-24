@@ -6,7 +6,7 @@
     --secondary-brand-color: #0762C8;
     --success: #198754;
     --success-dark: #095c36;
-    --success-light: #9dd3ba;
+    --success-light: #46c466;
     --warning: #ffc107;
     --warning-dark: #705400;
     --warning-light: #fdebb3;
@@ -20,12 +20,15 @@
 
 body {
     color: var(--new-black);
-    background-color: var(--new-white);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+h1,h2,h4,h3{
+    margin: 0;
+}
+
 button {
-    font-family: monospace;
+    font-family: "Poppins", sans-serif;
     font-weight: bold;
 }
 
@@ -56,7 +59,7 @@ button {
 
 .text-success-with-bg {
     color: var(--success-dark);
-    background-color: var(--success-light);
+    background-color: var(--success-light) !important;
 }
 
 .text-warning-with-bg {

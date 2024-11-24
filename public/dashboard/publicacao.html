@@ -6,68 +6,90 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./../css/dashboards.css">
-  <link rel="stylesheet" href="./../css/estilo.css" />
+  <link rel="stylesheet" href="galeria.css">
   <script src="../js/sessao.js"></script>
   <script src="./../js/alerta.js"></script>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link
-      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
   <!-- scripts do Chart.js - 2022-1 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!--FONT AWESOME-->
   <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
-  <title>Upload</title>
+  <title>Galeria</title>
 </head>
 
-<body>
-  <div class="header-left">
-    <h1>AquaTech</h1>
+<body onload="validarSessao(), listar()">
+  <div class="janela">
 
-    <div class="hello">
-        <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-        <h3><span id="b_cpf">cpf</span></h3>
-    </div>
+    <div class="invisible-header"></div>
+    <div class="header-left dash-header">
 
-    <div class="btn-nav-white">
-        <a href="./cards.html">
-            <h3>Aquários</h3>
-        </a>
-    </div>
+      <h1>GolfPedia</h1>
 
-    <div class="btn-nav">
+      <div class="container_menu">
 
-        <h3>Gráficos</h3>
+        <div class="btn-nav select">
+          <a href="./publicacao.html">
+            <h3>Feed</h3>
+          </a>
+        </div>
 
-    </div>
-    <div class="btn-nav-white">
-        <a href="./quizz.html">
+        <div class="btn-nav">
+          <a href="./quizz.html">
             <h3>Quizz</h3>
-        </a>
+          </a>
+        </div>
+
+        <div class="btn-nav">
+          <a href="./mural.html">
+            <h3>Suas Publicações</h3>
+          </a>
+        </div>
+
+        <div class="btn-nav">
+          <a href="./dashboard.html">
+            <h3>Gráficos</h3>
+          </a>
+        </div>
+
+        <div class="btn-logout" onclick="limparSessao()">
+          <h3>Sair</h3>
+        </div>
+      </div>
+
     </div>
+    <main class="dash-right">
+      <div class="container_bemvindo">
+        <div class="bemvindo_content">
+          <h4>Feed</h4> 
+          <h3>Olá,
+            <span id="b_usuario">usuário</span>
+            !
+          </h3>
+          <!-- <h3><span id="b_favorito">Favorito</span></h3> -->
+        </div>
+      </div>
 
-    <div class="btn-nav-white">
-        <a href="./mural.html">
-            <h3>Mural de Avisos</h3>
-        </a>
-    </div>
+      
+      <dialog id="dialog_modal">
+        <div class="container_modal">
+          <img src="" alt="">
 
-    <div class="btn-logout" onclick="limparSessao()">
-        <h3>Sair</h3>
-    </div>
+        </div>
+        
+      </dialog>
+      <section class="areaCards">
+        <div class="grid_container" id="feed_publi">
 
-</div>
-
-  <div>
-    <input name="nome" id="nome" type="text" />
-    <input name="email" id="email" type="url" />
-    <input name="foto" id="foto" type="file" />
-    <button onclick="enviar()">Enviar</button>
+        </div>
+      </section>
+    </main>
+    <div id="container"></div>
   </div>
-
-  <div id="container"></div>
 </body>
 
 </html>
@@ -84,12 +106,184 @@
       body: formData
     })
       .then(res => {
-        console.log('deu bom')
         window.location = "./publicacao.html"
       })
       .catch(err => {
-        console.log('deu ruim')
         console.log(err);
       })
   }
+
+  function listar() {
+    var lista = '';
+    fetch(`/publicacao/listarAll/${sessionStorage.ID_USUARIO}`, {
+      method: "GET"
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          if (resposta.status == 204) {
+            var feed = document.getElementById("feed_publi");
+            var mensagem = document.createElement("span");
+
+            mensagem.innerHTML = "Nenhum resultado encontrado."
+            feed.appendChild(mensagem);
+            throw "Nenhum resultado encontrado!!";
+          } else {
+            resposta.json().then(function (resposta) {
+              var aleatorio = 0;
+              var estilo = '';
+              var feed = ``;
+              var icone = ``;
+
+              resposta.forEach(element => {
+                aleatorio = parseInt(Math.random() * 3 + 1);
+                if (aleatorio == 1) {
+                  estilo = 'card_small';
+                } else if (aleatorio == 2) {
+                  estilo = 'card_medium';
+                } else {
+                  estilo = 'card_large';
+                }
+
+                if (element.ja_curtiu == 0) {
+                  icone = `
+                    <i class="far fa-heart" id="icone_like${element.idPublicacao}" onclick="curtir(${element.idPublicacao})" style="color: white"></i>
+                  `
+                } else {
+                  icone = `
+                    <i class="fas fa-heart" id="icone_like${element.idPublicacao}" onclick="descurtir(${element.idPublicacao})" style="color: red"></i>
+                  `
+                }
+
+                feed +=
+                  `
+                  <div class="card ${estilo}" data-publicacao-id="${element.idPublicacao}">
+                    <img src="../assets/imgs/publicacoes/${element.nome}" alt="Publicação" class="img_feed">
+                    <div class="botoes">
+                      <div class="options">
+                        <div id="div_botao">
+                          ${icone}
+                        </div>
+                        <div id="div_botao">
+                          <i class="far fa-eye" id="open-photo" onclick="openModal(event)"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                `
+              });
+
+              feed_publi.innerHTML = feed;
+            })
+
+          }
+        }
+      })
+
+
+  }
+
+  function curtir(idPubli) {
+    var idPubliVar = Number(idPubli);
+    console.log(JSON.stringify({
+      idPubliServer: idPubliVar,
+    }))
+    fetch(`/curtir/salvar/${sessionStorage.ID_USUARIO}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idPubliServer: idPubliVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          var icones = document.getElementById(`icone_like${idPubli}`);
+          const classesToAdd = ['fas', 'fa-heart'];
+          const classesToRemove = ['far', 'fa-heart'];
+
+          classesToRemove.forEach(classe => {
+            icones.classList.remove(classe)  
+          });
+
+          classesToAdd.forEach(classe => {
+            icones.classList.add(classe)  
+          });
+
+          icones.setAttribute('onclick', `descurtir(${idPubli})`);
+
+        } else {
+          throw "Houve um erro ao tentar curtir a publicação!";
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    return false;
+  }
+
+  function descurtir(idPubli) {
+    var idPubliVar = Number(idPubli);
+    console.log(JSON.stringify({
+      idPubliServer: idPubliVar,
+    }))
+    fetch(`/curtir/deletar/${sessionStorage.ID_USUARIO}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idPubliServer: idPubliVar,
+      }),
+    })
+    .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          var icones = document.getElementById(`icone_like${idPubli}`);
+          const classesToRemove = ['fas', 'fa-heart'];
+          const classesToAdd = ['far', 'fa-heart'];
+          // console.log(icones.event.target)
+          // if () {
+          classesToRemove.forEach(classe => {
+            icones.classList.remove(classe)  
+          });
+
+          classesToAdd.forEach(classe => {
+            icones.classList.add(classe)  
+          });
+
+          icones.setAttribute('onclick', `curtir(${idPubli})`);
+
+        } else {
+          throw "Houve um erro ao tentar curtir a publicação!";
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+    return false;
+  }
+
+ function openModal(event){
+  const card = event.target.closest('.card');
+
+  var publicacaoId = card.dataset.publicacaoId;
+
+  console.log('openModal ' + publicacaoId)
+
+  // Acessa a imagem dentro do card
+  const imgSrc = card.querySelector('.img_feed').src;
+
+  const modal = document.getElementById('dialog_modal');
+  const modalImage = modal.querySelector('img');
+  // console.log(imgSrc)
+  modalImage.src = imgSrc;
+
+  modal.showModal();
+ }
 </script>
