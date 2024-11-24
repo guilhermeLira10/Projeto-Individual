@@ -2,91 +2,99 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <!-- <link rel="stylesheet" href="./../css/estilo.css" /> -->
-    <link rel="stylesheet" href="./galeria.css" />
+  <link rel="stylesheet" href="./../css/dashboards.css">
+  <!-- <link rel="stylesheet" href="./../css/estilo.css" /> -->
+  <link rel="stylesheet" href="./galeria.css" />
 
-    <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
+  <script src="../js/sessao.js"></script>
+  <script src="./../js/alerta.js"></script>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 
 
-    <title>AquaTech | Avisos</title>
+  <title>AquaTech | Avisos</title>
 </head>
 
 <body onload="validarSessao(), listarPorUsuario()">
 
-    <div class="janela">
-        <div class="header-left dash-header">
-    
-            <h1>GolfPedia</h1>
-      
-            <div class="hello">
-              <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-            <div class="hello">
-              <h3><span id="b_favorito">Favorito</span></h3>
-            </div>
-      
-      
-            <div class="btn-nav">
-              <h3>Aquários</h3>
-            </div>
-      
-            <div class="btn-nav">
-              <a href="./dashboard.html">
-                <h3>Gráficos</h3>
-              </a>
-            </div>
-            <div class="btn-nav">
-              <a href="./quizz.html">
-                <h3>Quizz</h3>
-              </a>
-            </div>
-            <div class="btn-nav">
-              <a href="./publicacao.html">
-                <h3>Galeria</h3>
-              </a>
-            </div>
-      
-            <div class="btn-nav">
-              <a href="./mural.html">
-                <h3>Mural de Avisos</h3>
-              </a>
-            </div>
-      
-            <div class="btn-logout" onclick="limparSessao()">
-              <h3>Sair</h3>
-            </div>
-            
-          </div>
-        <div class="dash-right">
-            <h1>Mural de fotos</h1>
-            <!-- <input name="nome" id="nome" type="text" />
-            <input name="email" id="email" type="url" /> -->
-            <div class="container_form">
-                <input  name="foto" id="foto" type="file"/>
-                <button  class="btn-primary" onclick="enviar()">Enviar</button>
-            </div>
-            
-            <section class="areaCards">
-                <div class="grid_container" id="feed_publi">
+  <div class="janela">
+    <div class="invisible-header"></div>
+    <div class="header-left dash-header">
 
-                </div>
-            </section>
+      <h1>GolfPedia</h1>
+
+      <div class="container_menu">
+
+        <div class="btn-nav">
+          <a href="./publicacao.html">
+            <h3>Feed</h3>
+          </a>
+        </div>
+
+        <div class="btn-nav">
+          <a href="./quizz.html">
+            <h3>Quizz</h3>
+          </a>
+        </div>
+
+        <div class="btn-nav select">
+          <a href="./mural.html">
+            <h3>Minhas Publicações</h3>
+          </a>
+        </div>
+
+        <div class="btn-nav">
+          <a href="./dashboard.html">
+            <h3>Gráficos</h3>
+          </a>
+        </div>
+
+        <div class="btn-logout" onclick="limparSessao()">
+          <h3>Sair</h3>
+        </div>
+      </div>
+
+    </div>
+    <div class="dash-right">
+      <div class="container_bemvindo">
+        <div class="bemvindo_content">
+          <h4>Minhas Publicações</h4> 
+          <h3>Olá,
+            <span id="b_usuario">usuário</span>
+            !
+          </h3>
+          <!-- <h3><span id="b_favorito">Favorito</span></h3> -->
+        </div>
+      </div>
+      <h1>Minhas Publicações</h1>
+      <!-- <input name="nome" id="nome" type="text" />
+            <input name="email" id="email" type="url" /> -->
+      <div class="container_form">
+        <input name="foto" id="foto" type="file" />
+        <button class="btn-primary" onclick="enviar()">Enviar</button>
+      </div>
+
+      <div id="mensagem_erro"></div>
+
+
+      <section class="areaCards">
+        <div class="grid_container" id="feed_publi">
 
         </div>
+      </section>
+
+      
     </div>
+  </div>
 
 </body>
 
@@ -94,16 +102,16 @@
 
 <script>
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-    function limparFormulario() {
-        document.getElementById("form_postagem").reset();
-    }
+  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+  function limparFormulario() {
+    document.getElementById("form_postagem").reset();
+  }
 
-    function enviar() {
+  function enviar() {
     const formData = new FormData();
-    formData.append('foto', foto.files[0])  
+    formData.append('foto', foto.files[0])
 
-    fetch("/publicacao/cadastro", {
+    fetch(`/publicacao/cadastro/${sessionStorage.ID_USUARIO}`, {
       method: "POST",
       body: formData
     })
@@ -115,139 +123,144 @@
       })
   }
 
-    function deletar(idPublicacao) {
-        console.log("Criar função de apagar post escolhido - ID" + idPublicacao);
-        fetch(`/publicacao/deletar/${idPublicacao}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
+  function deletar(idPublicacao) {
+    var idPubliVar = Number(idPublicacao);
+    console.log(`Criar função de apagar post escolhido \n ID publicacao ${idPubliVar} \n idusuario: ${sessionStorage.ID_USUARIO}`);
+    fetch(`/publicacao/deletar/${sessionStorage.ID_USUARIO}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        idPubliServer: idPubliVar
+      }),
+    }).then(function (resposta) {
 
-            if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario: " + sessionStorage.getItem("NOME_USUARIO") + "!");
-                window.location = "/dashboard/mural.html"
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
+      if (resposta.ok) {
+        window.alert("Post deletado com sucesso pelo usuario: " + sessionStorage.getItem("NOME_USUARIO") + "!");
+        window.location = "/dashboard/mural.html"
+      } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+      } else {
+        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+  }
+
+  function atualizarFeed() {
+    fetch("/avisos/listar").then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          var feed = document.getElementById("feed_container");
+          var mensagem = document.createElement("span");
+          mensagem.innerHTML = "Nenhum resultado encontrado."
+          feed.appendChild(mensagem);
+          throw "Nenhum resultado encontrado!!";
+        }
+
+        resposta.json().then(function (resposta) {
+          // console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+          var feed = document.getElementById("feed_container");
+          feed.innerHTML = "";
+          for (let i = 0; i < resposta.length; i++) {
+            var publicacao = resposta[i];
+
+            // criando e manipulando elementos do HTML via JavaScript
+            var divPublicacao = document.createElement("div");
+            var spanID = document.createElement("span");
+            var spanTitulo = document.createElement("span");
+            var spanNome = document.createElement("span");
+            var divDescricao = document.createElement("div");
+            var divButtons = document.createElement("div");
+            var btnEditar = document.createElement("button");
+            var btnDeletar = document.createElement("button");
+
+
+            spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
+            spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
+            spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+            divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+            btnEditar.innerHTML = "Editar";
+            btnDeletar.innerHTML = "Deletar";
+
+            divPublicacao.className = "publicacao";
+            spanTitulo.id = "inputNumero" + publicacao.idAviso;
+            spanNome.className = "publicacao-nome";
+            spanTitulo.className = "publicacao-titulo";
+            divDescricao.className = "publicacao-descricao";
+
+            divButtons.className = "div-buttons"
+
+            btnEditar.className = "publicacao-btn-editar"
+            btnEditar.id = "btnEditar" + publicacao.idAviso;
+            btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
+
+            btnDeletar.className = "publicacao-btn-editar"
+            btnDeletar.id = "btnDeletar" + publicacao.idAviso;
+            btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
+
+            divPublicacao.appendChild(spanID);
+            divPublicacao.appendChild(spanNome);
+            divPublicacao.appendChild(spanTitulo);
+            divPublicacao.appendChild(divDescricao);
+            divPublicacao.appendChild(divButtons);
+            divButtons.appendChild(btnEditar);
+            divButtons.appendChild(btnDeletar);
+            feed.appendChild(divPublicacao);
+          }
+
+          finalizarAguardar();
         });
-    }
+      } else {
+        throw ('Houve um erro na API!');
+      }
+    }).catch(function (resposta) {
+      console.error(resposta);
+      finalizarAguardar();
+    });
+  }
 
-    function atualizarFeed() {
-        fetch("/avisos/listar").then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-                    var feed = document.getElementById("feed_container");
-                    var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Nenhum resultado encontrado."
-                    feed.appendChild(mensagem);
-                    throw "Nenhum resultado encontrado!!";
+  function listarPorUsuario() {
+    var lista = '';
+    console.log('to aqui')
+    fetch(`/publicacao/listar/${sessionStorage.ID_USUARIO}`, {
+      method: "GET"
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          if (resposta.status == 204) {
+            var feed = document.getElementById("mensagem_erro");
+            var mensagem = document.createElement("span");
+            mensagem.style.textAlign = 'center';
+            mensagem.innerHTML = "Nenhuma publicação encontrada."
+            feed.appendChild(mensagem);
+            // throw "Nenhum resultado encontrado!!";
+          } else {
+            resposta.json().then(function (resposta) {
+              var aleatorio = 0;
+              var estilo = '';
+              var feed = ``;
+
+              resposta.forEach(element => {
+                aleatorio = parseInt(Math.random() * 3 + 1);
+                if (aleatorio == 1) {
+                  estilo = 'card_small';
+                } else if (aleatorio == 2) {
+                  estilo = 'card_medium';
+                } else {
+                  estilo = 'card_large';
                 }
 
-                resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                    var feed = document.getElementById("feed_container");
-                    feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
-
-                        // criando e manipulando elementos do HTML via JavaScript
-                        var divPublicacao = document.createElement("div");
-                        var spanID = document.createElement("span");
-                        var spanTitulo = document.createElement("span");
-                        var spanNome = document.createElement("span");
-                        var divDescricao = document.createElement("div");
-                        var divButtons = document.createElement("div");
-                        var btnEditar = document.createElement("button");
-                        var btnDeletar = document.createElement("button");
-
-
-                        spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
-                        spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
-                        spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
-                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
-                        btnEditar.innerHTML = "Editar";
-                        btnDeletar.innerHTML = "Deletar";
-
-                        divPublicacao.className = "publicacao";
-                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
-                        spanNome.className = "publicacao-nome";
-                        spanTitulo.className = "publicacao-titulo";
-                        divDescricao.className = "publicacao-descricao";
-
-                        divButtons.className = "div-buttons"
-
-                        btnEditar.className = "publicacao-btn-editar"
-                        btnEditar.id = "btnEditar" + publicacao.idAviso;
-                        btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
-
-                        btnDeletar.className = "publicacao-btn-editar"
-                        btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
-
-                        divPublicacao.appendChild(spanID);
-                        divPublicacao.appendChild(spanNome);
-                        divPublicacao.appendChild(spanTitulo);
-                        divPublicacao.appendChild(divDescricao);
-                        divPublicacao.appendChild(divButtons);
-                        divButtons.appendChild(btnEditar);
-                        divButtons.appendChild(btnDeletar);
-                        feed.appendChild(divPublicacao);
-                    }
-
-                    finalizarAguardar();
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-            finalizarAguardar();
-        });
-    }
-
-    function listarPorUsuario() {
-        var lista = '';
-        console.log('to aqui')
-        fetch(`/publicacao/listar/${sessionStorage.ID_USUARIO}`, {
-            method: "GET"
-        })
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        var feed = document.getElementById("rank");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    } else {
-                        resposta.json().then(function (resposta) {
-                            var aleatorio = 0;
-                            var estilo = '';
-                            var feed = ``;
-
-                            resposta.forEach(element => {
-                                aleatorio = parseInt(Math.random() * 3 + 1);
-                                if (aleatorio == 1) {
-                                    estilo = 'card_small';
-                                } else if (aleatorio == 2) {
-                                    estilo = 'card_medium';
-                                } else {
-                                    estilo = 'card_large';
-                                }
-
-                                feed +=
-                                    `
+                feed +=
+                  `
                   <div class="card ${estilo}">
                     <a class="click">
                       <img src="../assets/imgs/publicacoes/${element.nome}" alt="Publicação">
                     </a>
-                    <div class="info">
+                    <div class="botoes">
                       <div class="options">
                         <div id="div_botao">
                          <i class="far fa-trash-alt" onclick="deletar(${element.idPublicacao})"></i>
@@ -259,14 +272,14 @@
                   </div>
                 
                 `
-                            });
+              });
 
-                            feed_publi.innerHTML += feed;
-                        })
-
-                    }
-                }
+              feed_publi.innerHTML += feed;
             })
-    }
+
+          }
+        }
+      })
+  }
 
 </script>

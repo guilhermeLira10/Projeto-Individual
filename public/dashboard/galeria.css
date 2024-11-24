@@ -5,7 +5,7 @@
 :root {
     --card_width: 275px;
     --row_increment: 10px;
-    --card_border_radius: 12px;
+    --card_border_radius: 8px;
     --card_small: 25;
     --card_medium: 33;
     --card_large: 40;
@@ -25,6 +25,7 @@
     height: fit-content;
     width: 100%;
     margin-top: 60px;
+    height: 100vh;
 }
 
 .grid_container {
@@ -62,6 +63,31 @@
     width: 100%;
 }
 
+dialog#dialog_modal {
+    margin: auto;
+
+}
+
+dialog {
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
+    max-width: 60vw;
+    max-height: 90vh;
+}
+div.container_modal{
+    width: 75%;
+}
+
+dialog img {
+    display: block;
+    max-width: 88%;
+}
+dialog#dialog_modal::backdrop {
+    background-color: #000000be;
+}
+
 .card_small {
     grid-row-end: span var(--card_small);
 }
@@ -74,37 +100,37 @@
     grid-row-end: span var(--card_large);
 }
 
-.info {
+.botoes {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    color: white;
+    color: #FFFFFF;
     text-align: center;
     transform: translateY(5%);
     transition: transform 0.3s ease;
     opacity: 0;
-    border-radius: 0px 0px 16px 16px;
+    border-radius: 0px 0px 8px 8px;
     font-size: 0.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     padding: 10px 0;
     background: linear-gradient(#f1e2d500, #0000009f);
 }
 
-.info a {
+.botoes a {
     color: #fff;
 }
 
-.card:hover .info {
+.card:hover .botoes {
     transform: translateY(0);
     opacity: 1;
 }
 
-.infoUser {
+.botoesUser {
     display: flex;
     gap: 15px;
 }
@@ -118,15 +144,39 @@
 .options {
     font-size: 1rem;
     display: flex;
-    gap: 25px;
+    gap: 12px;
 }
 
 i {
     cursor: pointer;
 }
+i.fa-eye:hover{
+    color: #007bff;
+}
 
-i:hover {
-    color: #e3b062;
+i.fa-trash-alt {
+    color: white;
+}
+
+i.far.fa-heart{
+    color: #ffffff !important;
+}
+
+i.fas.fa-heart{
+    color: #ff0000 !important;
+}
+
+
+i.far.fa-heart:hover{
+    color: #ff0000 !important;
+}
+
+i.fas.fa-heart:hover{
+    color: #ffffff !important;
+}
+
+i.fa-trash-alt:hover {
+    color: rgb(95, 95, 95);
 }
 
 .container_form {
