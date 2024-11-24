@@ -7,64 +7,68 @@
     <title>Exemplo - Quiz</title>
     <link rel="stylesheet" href="quizz.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./../css/dashboards.css">  
-    <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <!-- <link rel="stylesheet" href="./../css/estilo   .css" /> -->
     <script src="../js/sessao.js"></script>
 </head>
 
 
 <body onload="validarSessao(), onloadEsconder(), listar()">
-    
+
     <div class="janela">
 
+        <div class="invisible-header"></div>
         <div class="header-left dash-header">
 
             <h1>GolfPedia</h1>
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-            <div class="hello">
-                <h3><span id="b_favorito">Favorito</span></h3>
-            </div>
-            
+            <div class="container_menu">
 
-            <div class="btn-nav">
-                <h3>Aquários</h3>
-            </div>
+                <div class="btn-nav">
+                    <a href="./publicacao.html">
+                        <h3>Feed</h3>
+                    </a>
+                </div>
 
-            <div class="btn-nav">
-                <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
-                </a>
-            </div>
-            <div class="btn-nav">
-                <a href="./quizz.html">
-                    <h3>Quizz</h3>
-                </a>
-            </div>
-            <div class="btn-nav">
-                <a href="./publicacao.html">
-                    <h3>Galeria</h3>
-                </a>
-            </div>
+                <div class="btn-nav select">
+                    <a href="./quizz.html">
+                        <h3>Quizz</h3>
+                    </a>
+                </div>
 
-            <div class="btn-nav">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
+                <div class="btn-nav">
+                    <a href="./mural.html">
+                        <h3>Suas Publicações</h3>
+                    </a>
+                </div>
 
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
+                <div class="btn-nav">
+                    <a href="./dashboard.html">
+                        <h3>Gráficos</h3>
+                    </a>
+                </div>
+
+                <div class="btn-logout" onclick="limparSessao()">
+                    <h3>Sair</h3>
+                </div>
             </div>
 
         </div>
         <div class="dash-right">
+            <div class="container_bemvindo">
+                <div class="bemvindo_content">
+                    <h4>Quizz</h4>
+                    <h3>Olá,
+                        <span id="b_usuario">usuário</span>
+                        !
+                    </h3>
+                    <!-- <h3><span id="b_favorito">Favorito</span></h3> -->
+                </div>
+            </div>
             <div id="pontuacaoEJogo">
                 <h1 id="titulo_quizz">Teste seu conhecimento</h1>
                 <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
-    
+
                 <div id="pontuacao" class="flex-colunar width-fit-content">
                     <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
                         <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
@@ -77,71 +81,73 @@
                         <span id="msgFinal" class="width-fit-content">***</span>
                     </div>
                 </div>
-    
+
                 <div id="jogo" class="flex-colunar">
-    
+
                     <div class="container_pergunta">
 
                         <div id="infoQuestao" class="padding-8">
-                            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span
+                                    id="qtdQuestoes"></span>
                                 questões.</span>
                         </div>
-        
+
                         <div id="perguntaDaQuestaoAtual" class="padding-8">
                             <span id="spanQuestaoExibida" class="text-bold"></span>
                         </div>
-        
+
                         <div id="infoAlternativas" class="padding-8">
                             <span><em>Escolha uma opção dentre as abaixo:</em></span>
                         </div>
-        
+
                     </div>
                     <div id="opcoes" class="flex-colunar padding-8">
                         <span class="quiz-option">
-                            <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" onclick="submeter()"/>
+                            <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA"
+                                onclick="submeter()" />
                             <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
                         </span>
                         <span class="quiz-option">
-                            <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" onclick="submeter()"/>
+                            <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB"
+                                onclick="submeter()" />
                             <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
                         </span>
                         <span class="quiz-option">
-                            <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" onclick="submeter()"/>
+                            <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC"
+                                onclick="submeter()" />
                             <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
                         </span>
                         <span class="quiz-option">
-                            <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" onclick="submeter()"/>
+                            <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD"
+                                onclick="submeter()" />
                             <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
                         </span>
                     </div>
-    
+
                     <div id="botoes" class=" padding-8">
                         <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
                         <button onclick="avancar()" id="btnProx" disabled>Avançar</button>
                         <!-- <butt onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
                         <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
                     </div>
-    
+
                 </div>
             </div>
             <div id='div_resultado' class="div_rank">
                 <h1>Score</h1>
                 <ol id="ol_rank">
-    
+
                 </ol>
             </div>
         </div>
-
     </div>
-
 </body>
-
 </html>
 <script>
-    function listar(){
+    function listar() {
         var lista = '';
         fetch("/score/listar").then(function (resposta) {
-            if(resposta.ok){
+            if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("rank");
                     var mensagem = document.createElement("span");
@@ -149,14 +155,13 @@
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
-                resposta.json().then(function (resposta){
+                resposta.json().then(function (resposta) {
                     resposta.forEach(element => {
-                        console.log(element.Nome)
                         ol_rank.innerHTML += `  
                             <li>
                                 <div class="pontuacao">
-                                    <b>${element.Nome}: </b>
-                                    <span>${element.Pontuação}</span>
+                                    <b>${element.nome}: </b>
+                                    <span>${element.pontuacao}</span>
                                 </div>
                             </li>`
                     });
@@ -264,7 +269,6 @@
     let certas = 0
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
-    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
 
     function onloadEsconder() {
         document.getElementById('pontuacao').style.display = "none"
@@ -272,13 +276,13 @@
         document.getElementById('btnSubmeter').style.display = "none"
         document.getElementById('btnTentarNovamente').style.display = "none"
     }
-    
+
     function iniciarQuiz() {
         document.getElementById('div_resultado').style.display = "none"
         document.getElementById('jogo').style.display = "flex"
         document.getElementById('btnIniciarQuiz').style.display = "none"
         document.getElementById('titulo_quizz').style.display = "none"
-        
+
 
         document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
 
@@ -288,7 +292,7 @@
         btnProx.disabled = true
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = true
-        
+
     }
 
     function preencherHTMLcomQuestaoAtual(index) {
@@ -429,13 +433,13 @@
             classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
-        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
 
-        document.getElementById('jogo').classList.add("text-new-gray") 
+        document.getElementById('jogo').classList.add("text-new-gray")
 
         btnProx.disabled = true
         btnSubmeter.disabled = true
@@ -445,7 +449,7 @@
 
     }
 
-    function salvarScore(){
+    function salvarScore() {
         console.log(sessionStorage.ID_USUARIO)
         document.getElementById('div_resultado').style.display = "flex"
         document.getElementById('jogo').style.display = "none"
@@ -472,5 +476,5 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
-    
+
 </script>

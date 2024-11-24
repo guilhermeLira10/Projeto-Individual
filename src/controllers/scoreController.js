@@ -60,36 +60,28 @@ function pesquisarDescricao(req, res) {
         );
 }
 
+
 function inserirPontuacao(req, res) {
     var idUsuario = req.params.idUsuario;
     var pontos = req.body.qtdPontos;
-    scoreModel.listarPorUsuario(idUsuario)
-    .then(
-        function(resultadoListagem){
-            console.log(`\nResultados encontrados: ${resultadoListagem.length}`);
-            console.log(`Resultados: ${JSON.stringify(resultadoListagem)}`); // transforma JSON em String
-            if(resultadoListagem.length == 1){
-                scoreModel.editar(pontos,idUsuario)
-            }else{
-                scoreModel.inserirPontuacao(pontos,idUsuario)
-            }
-        }
-        
-    )
-    // scoreModel.inserirPontuacao(idUsuario)
-    .then(
-        function (resultado) {
-            res.json(resultado);
-        }
-    )
-    .catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
 
+    if (idUsuario == undefined) {
+        res.status(400).send("idUsuario está undefined!");
+    } else if (pontos == undefined) {
+        res.status(400).send("pontos está undefined!");
+    } else {
+        scoreModel.inserirPontuacao(pontos, idUsuario)
+        .then((resultado) => {
+            res.status(201).json(resultado);
+        }).catch((erro) => {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao realizar o cadastro dos pontos! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
 }
 
 function editar(req, res) {
