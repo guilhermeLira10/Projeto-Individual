@@ -1,15 +1,53 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+function qtdUsuarios() {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+    var instrucaoSql = `
+        SELECT count(*) as qtdUsuarios from usuario;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function qtdQuiz() {
+
+    var instrucaoSql = `
+        SELECT count(*) as qtdQuiz from score;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function maiorPublicador() {
+
+    var instrucaoSql = `
+        SELECT u.nome, count(*) as qtdPublicacao 
+        FROM publicacao as p
+        JOIN usuario as u
+        ON u.idUsuario = p.fkUsuario
+        group by fkUsuario
+        order by qtdPublicacao desc
+        ;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function qtdPostagem() {
+
+    var instrucaoSql = `
+        SELECT count(*) as qtdPostagem from publicacao;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function qtdCurtida() {
+
+    var instrucaoSql = `
+        SELECT count(*) as qtdCurtida from curtida;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -21,7 +59,22 @@ function buscarFrequenciaPublicacoes() {
         SELECT DATE_FORMAT(dtPublicacao, '%d-%m') AS dia ,count(*) AS quantidade
         FROM publicacao
         WHERE dtPublicacao >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
-        GROUP BY dia;
+        GROUP BY dia
+        order by dia asc;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarFrequenciaCurtida() {
+
+    var instrucaoSql = ` 
+        SELECT DATE_FORMAT(dtCurtida, '%d-%m') AS dia ,count(*) AS quantidade
+        FROM curtida
+        WHERE dtCurtida >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+        GROUP BY dia
+        order by dia desc;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -58,8 +111,13 @@ function buscarMedidasEmTempoReal(idAquario) {
 }
 
 module.exports = {
-    buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     buscarFrequenciaPublicacoes,
-    buscarScore
+    buscarScore,
+    qtdUsuarios,
+    qtdQuiz,
+    qtdPostagem,
+    qtdCurtida,
+    buscarFrequenciaCurtida,
+    maiorPublicador
 }

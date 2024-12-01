@@ -2,11 +2,11 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/icon/favicon2.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
+    <title>WheelHaus | Dashboards</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./../css/dashboards.css">
@@ -26,131 +26,129 @@
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
-<!-- <body onload=" atualizarFeed()"> -->
-
-<!-- <body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()"> -->
-
-<body onload="validarSessao(), obterDadosGraficoLinha(), obterDadosGraficoBarra()">
-
+<body>
     <div class="janela">
         <div class="invisible-header"></div>
         <div class="header-left dash-header">
-
-            <h1>GolfPedia</h1>
-      
+            <!--              <div class="container-logo">
+                <img src="../assets/imgs/logo2-menor.png" alt="WheelHaus">
+             </div> -->
+             <div class="container-logo">
+                <img src="../assets/imgs/logo2-menor.png" alt="WheelHaus">
+             </div>
             <div class="container_menu">
-      
-              <div class="btn-nav ">
-                <a href="./publicacao.html">
-                  <h3>Feed</h3>
-                </a>
-              </div>
-      
-              <div class="btn-nav">
-                <a href="./quizz.html">
-                  <h3>Quizz</h3>
-                </a>
-              </div>
-      
-              <div class="btn-nav">
-                <a href="./mural.html">
-                  <h3>Suas Publicações</h3>
-                </a>
-              </div>
-      
-              <div class="btn-nav select">
-                <a href="./dashboard.html">
-                  <h3>Gráficos</h3>
-                </a>
-              </div>
-      
-              <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-              </div>
-            </div>
-      
-          </div>
 
+                <div class="btn-nav ">
+                    <a href="./publicacao.html">
+                        <h3>Feed</h3>
+                    </a>
+                </div>
+
+                <div class="btn-nav">
+                    <a href="./quizz.html">
+                        <h3>Quizz</h3>
+                    </a>
+                </div>
+
+                <div class="btn-nav">
+                    <a href="./mural.html">
+                        <h3>Minhas Publicações</h3>
+                    </a>
+                </div>
+
+                <div class="btn-nav select">
+                    <a href="./dashboard.html">
+                        <h3>Gráficos</h3>
+                    </a>
+                </div>
+
+                <div class="btn-logout" onclick="limparSessao()">
+                    <h3>Sair</h3>
+                </div>
+            </div>
+        </div>
         <div class="dash-right">
             <div class="container_bemvindo">
                 <div class="bemvindo_content">
-                  <h4>Feed</h4> 
-                  <h3>Olá,
-                    <span id="b_usuario">usuário</span>
-                    !
-                  </h3>
-                  <!-- <h3><span id="b_favorito">Favorito</span></h3> -->
+                    <h3>Graficos</h3>
+                    <h3>Olá,
+                        <span id="b_usuario">usuário</span>
+                        !
+                    </h3>
+                    <!-- <h3><span id="b_favorito">Favorito</span></h3> -->
                 </div>
-              </div>
-
-            <h1>Graficos</h1>
-            <div id="alerta">
             </div>
+
+            <div id="alerta"></div>
 
             <div class="cards">
-                <div class="card">a</div>
-                <div class="card">c</div>
-                <div class="card">v'</div>
+                <div class="card flex">
+                    <h4>Usuarios ativos</h4>
+                    <div id="div_totUsuarios">
+
+                    </div>
+                </div>
+                <div class="card flex">
+                    <h4>Quizz feitos</h4>
+                    <div id="div_totQuiz">
+
+                    </div>
+                </div>
+                <div class="card flex">
+                    <h4>Total de postagem</h4>
+                    <div id="div_totPostagem">
+
+                    </div>
+                </div>
+                <div class="card flex">
+                    <h4>Total de likes</h4>
+                    <div id="div_totCurtida">
+
+                    </div>
+                </div>
 
             </div>
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
-            </div>
 
-            <div class="graph">
-                <!-- <canvas id="myChartCanvas"></canvas> -->
-                <canvas id="myChartCanvasLinha"></canvas> <!-- Gráfico de Linha -->
-                <canvas id="myChartCanvasBarras"></canvas> <!-- Gráfico de Barras -->
+            <div id="graficos"></div>
+
+            <div class="graph" id="div_graficos">
+                <div class="div_container-grafico">
+                    <canvas id="myChartCanvasBarras"></canvas>
+                </div>
+                <div class="div_container-grafico">
+                    <canvas id="myChartCanvasUserQtdPublicacoes"></canvas>
+                </div>
+                <div class="div_container-grafico">
+                    <canvas id="myChartCanvasLinha1"></canvas> <!-- Gráfico de Linha -->
+                </div>
+                <div class="div_container-grafico">
+                    <canvas id="myChartCanvasLinha2"></canvas> <!-- Gráfico de Linha -->
+                </div>
             </div>
 
         </div>
     </div>
-
-
 </body>
 
 </html>
 
 <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        validarSessao();
+        obterDadosGraficoLinhaCurtida();
+        obterDadosGraficoLinhaPublicacao();
+        obterDadosGraficoBarra();
+        qtdusuarios();
+        qtdQuiz();
+        qtdPostagem();
+        qtdCurtida();
+        maiorPublicador()
+    });
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-
     let proximaAtualizacao;
-
-    function exibirAquario(idAquario) {
-        let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
-
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idAquario) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
-                }
-                elementoAtual.classList.add("display-none")
-
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
-                }
-                btnAtual.classList.add("btn-white")
-            }
-        }
-
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idAquario}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
-
-        // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
-    }
-
     // O gráfico é construído com três funções:
     // 1. obterDadosGraficoLinha -, obterDadosGraficoLinha -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
     // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
@@ -162,13 +160,27 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGraficoLinha() {
-
-        fetch(`/medidas/frequencia`).then(function (response) {
+    function obterDadosGraficoLinhaPublicacao() {
+        fetch(`/medidas/frequenciaPublicacao`).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
+                    plotarGrafico(resposta, 'linha', 'Publicação');
 
-                    plotarGrafico(resposta, 'linha');
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterDadosGraficoLinhaCurtida() {
+        fetch(`/medidas/frequenciaCurtida`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    plotarGrafico(resposta, 'linha', 'Curtida');
 
                 });
             } else {
@@ -182,17 +194,36 @@
 
     function obterDadosGraficoBarra() {
 
-        fetch(`/medidas/score`).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
+        fetch(`/medidas/score`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            plotarGrafico(resposta, 'barra', 'score');
 
-                    plotarGrafico(resposta, 'barra');
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
+    function maiorPublicador() {
+        fetch(`/medidas/maiorPublicador`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            plotarGrafico(resposta, 'barra', 'UserQtdPublicacoes');
+
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
@@ -201,12 +232,12 @@
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, tipoGrafico) {
-
+    function plotarGrafico(resposta, tipoGrafico, titulo) {
         console.log('iniciando plotagem do gráfico...');
         console.log(`${resposta}`);
 
-        if (tipoGrafico == 'linha') {
+
+        if (tipoGrafico == 'linha' && titulo == 'Publicação') {
             // Criando estrutura para plotar gráfico - labels
             let labels = [];
 
@@ -214,7 +245,7 @@
             let dadosLinha = {
                 labels: labels,
                 datasets: [{
-                    label: 'Publicações',
+                    label: titulo,
                     data: [],
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
@@ -256,28 +287,107 @@
                         y: {
                             title: {
                                 display: true,
-                                text: '(Quantidade)',
+                                text: '(Quantidade)', // Exibe o título do eixo Y
                             },
-                            beginAtZero: true,  // Começa o eixo Y a partir de 0,
+                            beginAtZero: true, // Garante que o gráfico comece do zero
+                            min: 0, // Define explicitamente o valor mínimo como 0
                             ticks: {
-                                stepSize: 1,
+                                stepSize: 1, // Define o intervalo entre os rótulos do eixo Y
                             },
+                             grace: '5%'
                         },
                     },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Frequência de Publicações Diárias'
+                        }
+                    }
                 }
             };
             let myChartLinha = new Chart(
-                document.getElementById(`myChartCanvasLinha`),
+                document.getElementById(`myChartCanvasLinha1`),
                 configLinha
             );
-        } else if (tipoGrafico == 'barra') {
+        } else if (tipoGrafico == 'linha' && titulo == 'Curtida') {
+            // Criando estrutura para plotar gráfico - labels
+            let labels = [];
 
+            // Criando estrutura para plotar gráfico - dados
+            let dadosLinha = {
+                labels: labels,
+                datasets: [{
+                    label: titulo,
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            };
+
+            console.log('----------------------------------------------')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoLinha" , " e passados para "plotarGrafico":')
+            console.log(resposta)
+
+            resposta.forEach(element => {
+                labels.push(element.dia);
+                dadosLinha.datasets[0].data.push(element.quantidade);
+                // dados.datasets[1].data.push(element.temperatura);
+            });
+
+            console.log('----------------------------------------------')
+            console.log('O gráfico será plotado com os respectivos valores:')
+            console.log('Labels:')
+            console.log(labels)
+            console.log('Dados:')
+            console.log(dadosLinha.datasets)
+            console.log('----------------------------------------------')
+
+            // Criando estrutura para plotar gráfico - config
+            const configLinha = {
+                type: 'line',
+                data: dadosLinha,
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '(Dias)',
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '(Quantidade)', // Exibe o título do eixo Y
+                            },
+                            beginAtZero: true, // Garante que o gráfico comece do zero
+                            min: 0, // Define explicitamente o valor mínimo como 0
+                            ticks: {
+                                stepSize: 1, // Define o intervalo entre os rótulos do eixo Y
+                            },
+                            grace: '5%'
+                        },
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Frequência de Curtidas Diárias'
+                        }
+                    }
+                }
+            };
+            let myChartLinha = new Chart(
+                document.getElementById(`myChartCanvasLinha2`),
+                configLinha
+            );
+        } else if (tipoGrafico == 'barra' && titulo == 'score') {
             // let labels = ['Maximo', 'Minimo', 'Media'];
             let dadosBarra = {
                 labels: ['Parametros'],
                 datasets: [
                     {
-                        label: 'Maior que 10',
+                        label: 'Igual a 10',
                         data: [],  // valores máximos
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
@@ -303,8 +413,6 @@
             console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoBarra" , " e passados para "plotarGrafico":')
             console.log(resposta)
             resposta.forEach(element => {
-
-                console.log(element.maximo)
                 // labels.push(element.media);  // Exemplo de como preencher as labels com a data
                 dadosBarra.datasets[0].data.push(element.maiorQDez);  // Valores máximos
                 dadosBarra.datasets[1].data.push(element.menorQCinco);  // Valores mínimos
@@ -326,7 +434,13 @@
                     responsive: true,
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribuição de Acertos'
                         }
                     }
                 }
@@ -336,12 +450,163 @@
                 document.getElementById(`myChartCanvasBarras`),
                 configBarra
             );
+
+        } else if (titulo == 'UserQtdPublicacoes' && tipoGrafico == 'barra') {
+            let labels = [];
+            let dadosBarra = {
+                labels: labels,
+                datasets: [
+                    {
+                        axis: 'y',
+                        // label: 'Maior que 10',
+                        data: [],  // valores máximos
+                        fill: false,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    },
+                ]
+            };
+
+            resposta.forEach(element => {
+                labels.push(element.nome);
+                dadosBarra.datasets[0].data.push(element.qtdPublicacao);
+            });
+
+            const config = {
+                type: 'bar',
+                data: dadosBarra,
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            min: 0, // Define explicitamente o valor mínimo como 0
+                            ticks: {
+                                stepSize: 1, // Define o intervalo entre os rótulos do eixo Y
+                            },
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Quem Mais Publicou'
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                }
+            };
+
+            let myChartBarra = new Chart(
+                document.getElementById(`myChartCanvasUserQtdPublicacoes`),
+                config
+            );
         }
 
 
         // setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
     }
 
+    function qtdusuarios() {
+        fetch(`/medidas/qtdUsuarios`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            var qtdUsuarios = Number(resposta[0].qtdUsuarios);
+
+                            div_totUsuarios.innerHTML = `<span>${qtdUsuarios}</span>`;
+
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdQuiz() {
+        fetch(`/medidas/qtdQuiz`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            var qtdQuiz = Number(resposta[0].qtdQuiz);
+
+                            div_totQuiz.innerHTML = `<span>${qtdQuiz}</span>`;
+
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdPostagem() {
+        fetch(`/medidas/qtdPostagem`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            var qtdPostagem = Number(resposta[0].qtdPostagem);
+
+
+                            div_totPostagem.innerHTML = `<span>${qtdPostagem}</span>`;
+
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdCurtida() {
+        fetch(`/medidas/qtdCurtida`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            var qtdCurtida = Number(resposta[0].qtdCurtida);
+
+
+                            div_totCurtida.innerHTML = `<span>${qtdCurtida}</span>`;
+
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
     // buscando a última medida inserida em tabela contendo as capturas,

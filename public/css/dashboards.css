@@ -5,8 +5,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  font-family: 'Poppins', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 
 .dash-right_header {
   background-color: #12254A;
@@ -37,8 +36,7 @@ body {
 .dash-right .avisos {
   width: 100%;
   color: rgb(216, 216, 216);
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  font-family: 'Poppins', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 
 .dash-right .avisos .container {
   display: flex;
@@ -74,9 +72,13 @@ body {
 }
 
 .cards .card {
-  width: 25%;
+  width: 22%;
   height: 100px;
   background-color: #12254A;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cards h1 {
@@ -98,12 +100,20 @@ body {
 }
 
 .graph {
-  width: 70%;
   margin: auto;
   padding-top: 10px;
   display: flex;
-  flex-direction: column;
   gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.div_container-grafico{
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+  padding: 24px;
+  width: 40%;
+  display: flex;
+  justify-content: center;
 }
 
 .tituloGraficos {
@@ -124,10 +134,10 @@ body {
   display: block;
 }
 
-canvas {
+/* canvas {
   width: 100% !important;
   height: 100% !important;
-}
+} */
 
 /* PAGINA DOS GRÁFICOS 2023 */
 
@@ -145,13 +155,25 @@ canvas {
   height: 100%;
 }
 
+.dash-header img{
+  width: 80%;
+  align-self: center;
+}
+
+.container-logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .header-left {
   width: 20%;
   position: fixed;
   display: flex;
+  gap: 24px;
   height: 100%;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, 0.50);
   background-color: #12254A;
@@ -159,7 +181,7 @@ canvas {
 
 .dash-right {
   display: flex;
-  /* height: 100vh; */
+  margin-bottom: 50px;
   width: 80%;
   flex-direction: column;
   gap: 24px;
@@ -210,6 +232,10 @@ canvas {
   cursor: pointer;
 }
 
+.btn-logout:hover {
+  background-color: #5A729E;
+}
+
 .select {
   background-color: #5A729E;
   color: yellow;
@@ -251,4 +277,14 @@ ol {
 .pontuacao {
   display: flex;
   justify-content: space-between;
+}
+
+.flex{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flex span{
+  font-weight: 700;
 }
