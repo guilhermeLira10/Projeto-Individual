@@ -20,7 +20,7 @@
 
 body {
     color: var(--new-black);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Poppins', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1,h2,h4,h3{

@@ -73,17 +73,20 @@ dialog {
     border-radius: 8px;
     padding: 0;
     overflow: hidden;
-    max-width: 60vw;
-    max-height: 90vh;
+    max-width: 40%;
 }
-div.container_modal{
-    width: 75%;
-}
+
+div.container_modal {
+     height: auto; 
+     height: fit-content; 
+} 
 
 dialog img {
     display: block;
-    max-width: 88%;
+    object-fit: contain;
+    max-width: 100%;
 }
+
 dialog#dialog_modal::backdrop {
     background-color: #000000be;
 }
@@ -125,7 +128,7 @@ dialog#dialog_modal::backdrop {
     color: #fff;
 }
 
-.card:hover .botoes {
+.card:hover .botoes:hover {
     transform: translateY(0);
     opacity: 1;
 }
@@ -249,3 +252,50 @@ input[type="file"]::-webkit-file-upload-button:hover {
     background: #0056b3;
     transition: 0.3s;
 }
+/* 
+.container_modal{
+    display: flex;
+} */
+
+/* div#div_dadosUsuarioModal {
+    position: absolute;
+    z-index: 10000;
+    background-color: #0000006e;
+    height: 37px;
+    top: 306px;
+    width: 100%;
+} */
+
+.container_modal {
+    position: relative;
+    width: 100%;
+    /* max-width: 600px; */
+    margin: auto;
+  }
+  
+  .image_wrapper {
+    position: relative;
+  }
+  
+  .image_wrapper img {
+    width: 100%;
+    height: auto;
+    display: block; 
+  }
+  
+  #div_dadosUsuarioModal, .div_closeModal {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;    
+    font-size: 14px;
+  }
+  .div_closeModal {
+    left: 500px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
