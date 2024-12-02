@@ -6,7 +6,7 @@ function listar(idUsuario) {
   var instrucaoSql = `
 
 
-    SELECT p.idPublicacao, p.imgPublicada AS nome, p.dtPublicacao AS 'data', p.fkUsuario as 'userPost', u.nome as nomeUsuario, u.nickName,u.email,
+    SELECT p.idPublicacao, p.imgPublicada AS nome, DATE_FORMAT(p.dtPublicacao, '%d-%m-%Y') AS 'data', p.fkUsuario as 'userPost', u.nome as nomeUsuario, u.nickName,u.email,
     IF(c.fkUsuario IS NOT NULL, 1, 0) AS ja_curtiu
     FROM publicacao as p
     left JOIN curtida as c
