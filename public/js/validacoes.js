@@ -18,8 +18,10 @@ function validarFormularioFoto(arquivo) {
         return false
     }
 
-    const tiposValidos = ["image/png", "image/jpeg", "image/jpg", "image/svg+xml"];
-    
+    const tiposValidos = ["png", "jpeg", "jpg", "svg+xml"];
+
+    console.log(tiposValidos.includes(arquivo))
+
     if (!tiposValidos.includes(arquivo)) {
         
         let mensagemErro = 'O arquivo deve ser uma imagem nos formatos PNG, JPG ou SVG.';
