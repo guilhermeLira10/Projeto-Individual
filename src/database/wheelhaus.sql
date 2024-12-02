@@ -1,40 +1,5 @@
-CREATE DATABASE golfPedia;
-
-USE golfPedia;
-
-CREATE TABLE curtida (
-  qtdCurtida INT DEFAULT NULL,
-  dtCurtida TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  fkPublicacao INT NOT NULL,
-  fkUsuario INT NOT NULL,
-  PRIMARY KEY (fkPublicacao, fkUsuario),
-  CONSTRAINT fkCurtidaPublicacao FOREIGN KEY (fkPublicacao) REFERENCES publicacao (idPublicacao),
-  CONSTRAINT fkCurtidaUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
-);
-
-ALTER TABLE curtida DROP column qtdCurtida;
-
-CREATE TABLE publicacao (
-  idPublicacao INT AUTO_INCREMENT,
-  imgPublicada VARCHAR(200),
-  descricao VARCHAR(45),
-  dtPublicacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  titulo VARCHAR(45),
-  fkUsuario INT NOT NULL,
-  PRIMARY KEY (idPublicacao, fkUsuario),
-  CONSTRAINT fkPublicacaoUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
-);
- 
-alter table publicacao modify column dtPublicacao datetime DEFAULT CURRENT_TIMESTAMP;
-
-CREATE TABLE score (
-  idScore INT PRIMARY KEY AUTO_INCREMENT,
-  pontos INT DEFAULT NULL,
-  fkUsuario INT DEFAULT NULL,
-  CONSTRAINT fkScoreUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
-);
-
-alter table score add column dtScore datetime default current_timestamp;
+CREATE DATABASE wheelhaus;
+USE wheelhaus;
 
 CREATE TABLE usuario (
   idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -45,26 +10,43 @@ CREATE TABLE usuario (
   favorito VARCHAR(45)
 );
 
-CREATE TABLE comentario (
-  idComentario INT NOT NULL AUTO_INCREMENT,
-  fkPublicacao INT NOT NULL,
-  fkUsuario INT NOT NULL,
-  comentario VARCHAR(45) DEFAULT NULL,
-  dtComentario TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (idComentario, fkPublicacao, fkUsuario),
-  KEY fkPublicacao (fkPublicacao),
-  KEY fkUsuario (fkUsuario),
-  CONSTRAINT comentario_ibfk_1 FOREIGN KEY (fkPublicacao) REFERENCES publicacao (idPublicacao),
-  CONSTRAINT comentario_ibfk_2 FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
-);
-
 ALTER TABLE usuario ADD COLUMN nickName VARCHAR(45);
 
- alter table publicacao add foreign key (fkUsuario) references usuario (idUsuario);
+CREATE TABLE publicacao (
+  idPublicacao INT AUTO_INCREMENT,
+  imgPublicada VARCHAR(200),
+  dtPublicacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  fkUsuario INT NOT NULL,
+  PRIMARY KEY (idPublicacao, fkUsuario),
+  CONSTRAINT fkPublicacaoUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
+);
+ 
+alter table publicacao modify column dtPublicacao datetime DEFAULT CURRENT_TIMESTAMP;
+
+
+CREATE TABLE curtida (
+  dtCurtida TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  fkPublicacao INT NOT NULL,
+  fkUsuario INT NOT NULL,
+  PRIMARY KEY (fkPublicacao, fkUsuario),
+  CONSTRAINT fkCurtidaPublicacao FOREIGN KEY (fkPublicacao) REFERENCES publicacao (idPublicacao),
+  CONSTRAINT fkCurtidaUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
+);
+
+CREATE TABLE score (
+  idScore INT PRIMARY KEY AUTO_INCREMENT,
+  pontos INT DEFAULT NULL,
+  fkUsuario INT DEFAULT NULL,
+  CONSTRAINT fkScoreUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
+);
+
+alter table score add column dtScore datetime default current_timestamp;
+
 
 -- traz as fotos em ordem aleatoria
  SELECT idPublicacao,imgPublicada AS nome, dtPublicacao AS 'data' FROM publicacao order by rand();
  
+ -- quantidade de publicações
  select count(*) from publicacao;
   
  -- apagar publicacao
@@ -114,7 +96,6 @@ SELECT
     SUM(CASE WHEN pontos > 5 AND pontos < 10 THEN 1 ELSE 0 END) AS 'entreCincoDez'
 FROM score;
 
-SELECT idPublicacao, imgPublicada AS nome, dtPublicacao AS 'data' FROM publicacao ORDER BY rand();
 
 SELECT p.idPublicacao, p.imgPublicada AS nome, p.dtPublicacao AS 'data', p.fkUsuario, c.fkUsuario, u.idUsuario 
 FROM publicacao as p
@@ -168,9 +149,6 @@ join usuario as u
 on p.fkUsuario = u.idUsuario
 ORDER BY rand();
     
-select * from publicacao;
-
-
 SELECT u.nome as nomeUsuario, u.nickName, u.email, u.dtIncricao, u.favorito, p.fkUsuario 
 FROM usuario as u
 join publicacao as p
@@ -178,6 +156,47 @@ on p.fkUsuario = u.idUsuario
 where idPublicacao = 169
 ;
 
-select * from publicacao where idPublicacao = 168;
+SELECT count(*) from score;
+SELECT count(*) as qtdQuiz from curtida;
 
-SELECT u.nome as nomeUsuario, u.nickName, u.email, u.dtIncricao FROM usuario;
+SELECT DATE_FORMAT(dtCurtida, '%d-%m') AS dia ,count(*) AS quantidade
+FROM curtida
+WHERE dtCurtida >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+GROUP BY dia;
+
+SELECT u.nome, count(*) as qtdPublicacao 
+FROM publicacao as p
+JOIN usuario as u
+ON u.idUsuario = p.fkUsuario
+group by fkUsuario;
+
+INSERT INTO usuario (nome, email, senha, dtIncricao, favorito, nickName) VALUES
+('Guilherme', 'guilherme-lira@outlook.com.br', MD5('12345678'), '2024-11-10 10:53:38', 'Golf mk4', 'GuiLira'),
+('Victor', 'victor.serafim@hotmail.com', MD5('12345678'), '2024-11-10 10:53:38', 'Golf mk4', 'victorSerafim'),
+('Joaquim', 'joaquim@hotmail.com', MD5('12345678'), '2024-11-10 11:33:17', 'Golf mk7', 'JoaquimFenix'),
+('Victor', 'victor@gmail.com', MD5('Pryde@2030'), '2024-11-14 18:34:58', 'Golf mk2', 'Trevisan'),
+('Cainã', 'cainaG@gmail.com', MD5('123456'), '2024-11-14 18:35:12', 'Golf mk4', 'Cainã'),
+('Francisco de Assis', 'franciscodelira@ymail.com', MD5('123456'), '2024-11-15 16:08:21', 'Golf mk7', 'Lira'),
+('Esther', 'estherthe@gmail.com', MD5('Brae@2405'), '2024-11-15 18:50:57', 'Golf mk8', 'Theodoro'),
+('Cynthia', 'cynthia@gmail.com', MD5('22Pim1990@'), '2024-11-18 11:44:19', 'Golf mk1', NULL),
+('Liliana Serafim dos Santos', 'lilianasersantos@hotmail.com', MD5('Olivia29'), '2024-11-22 20:08:53', 'Golf mk8', 'Lili'),
+('Kawan Fritoli Gomes', 'kawan@gmail.com', MD5('123456'), '2024-11-29 11:08:12', 'Golf mk4', 'Ruivo57');
+
+INSERT INTO score (pontos, fkUsuario, dtScore) VALUES
+(10, 1, '2024-11-17 12:18:26'),
+(5, 2, '2024-11-17 12:18:26'),
+(8, 3, '2024-11-17 12:18:26'),
+(4, 5, '2024-11-17 12:18:26'),
+(7, 4, '2024-11-17 12:18:26'),
+(5, 6, '2024-11-17 12:18:26'),
+(9, 7, '2024-11-17 12:18:26'),
+(10, 1, '2024-11-19 21:33:37'),
+(2, 1, '2024-11-19 21:49:05'),
+(2, 1, '2024-11-20 16:26:49'),
+(7, 10, '2024-11-22 20:17:08'),
+(10, 1, '2024-11-24 17:56:29'),
+(2, 1, '2024-11-24 17:56:57'),
+(6, 1, '2024-11-29 14:11:16');
+
+select * from score order by pontos;
+
