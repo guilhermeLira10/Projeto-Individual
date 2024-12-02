@@ -69,8 +69,6 @@ function salvar(req, res) {
   const imagem = req.file.filename;
   
   var idUsuario = req.params.idUsuario;
-  var descricao = req.body.descricao;
-  var titulo = req.body.titulo;
 
   const publicacao = { imagem }
   // console.log(publicacao.imagem)

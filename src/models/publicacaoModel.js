@@ -40,8 +40,8 @@ function deletar(idPublicacao) {
 }
 
 function salvar(imagem,idUsuario) {
-  const instrucao = `INSERT INTO publicacao (imgPublicada, descricao, titulo, fkUsuario)
-      VALUES ('${imagem}', 'Primeira publicação de Guilherme', 'Bem-vindo ao site!', ${idUsuario});
+  const instrucao = `INSERT INTO publicacao (imgPublicada, fkUsuario)
+      VALUES ('${imagem}', ${idUsuario});
 
   `;
   console.log(instrucao + "INSTRUÇÃO PARA SALVAR IMAGEM")

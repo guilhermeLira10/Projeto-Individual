@@ -11,6 +11,10 @@ function exibirErro(mensagem) {
 }
 
 function validarFormularioFoto(arquivo) {
+    var termina_png = arquivo.endsWith('.png');
+    var termina_jpeg = arquivo.endsWith('.jpeg');
+    var termina_jpg = arquivo.endsWith('.jpg');
+    var termina_svg = arquivo.endsWith('.svg');
     console.log('Validando foto');
 
     if (!arquivo) {
@@ -18,12 +22,12 @@ function validarFormularioFoto(arquivo) {
         return false
     }
 
-    const tiposValidos = ["png", "jpeg", "jpg", "svg+xml"];
-
-    console.log(tiposValidos.includes(arquivo))
-
-    if (!tiposValidos.includes(arquivo)) {
-        
+    console.log(termina_png)
+    
+    if(!termina_png &&
+        !termina_jpeg &&
+        !termina_jpg &&
+        !termina_svg){        
         let mensagemErro = 'O arquivo deve ser uma imagem nos formatos PNG, JPG ou SVG.';
         exibirErro(mensagemErro);
         return false

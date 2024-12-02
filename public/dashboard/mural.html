@@ -119,7 +119,7 @@
     const formData = new FormData();
     formData.append('foto', foto.files[0])
 
-    if (!validarFormularioFoto(foto.files[0])) {
+    if (!validarFormularioFoto(foto.files[0].name)) {
       return false;
     }
     fetch(`/publicacao/cadastro/${sessionStorage.ID_USUARIO}`, {
