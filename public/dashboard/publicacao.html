@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="shortcut icon" href="../assets/icon/favicon2.png" type="image/x-icon">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,17 +19,25 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!--FONT AWESOME-->
-  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
-  <title>Galeria</title>
+  <script src="https://kit.fontawesome.com/0cf80b41e8.js" crossorigin="anonymous"></script>
+
+  <title>WheelHaus | Galeria</title>
 </head>
 
 <body onload="validarSessao(), listar()">
+  <div class="alerta_erro">
+    <div class="card_erro" id="cardErro">
+      <span id="mensagem_erro"></span>
+    </div>
+  </div>
   <div class="janela">
 
     <div class="invisible-header"></div>
     <div class="header-left dash-header">
 
-      <h1>GolfPedia</h1>
+      <div class="container-logo">
+        <img src="../assets/imgs/logo2-menor.png" alt="WheelHaus">
+      </div>
 
       <div class="container_menu">
 
@@ -46,7 +55,7 @@
 
         <div class="btn-nav">
           <a href="./mural.html">
-            <h3>Suas Publicações</h3>
+            <h3>Minhas Publicações</h3>
           </a>
         </div>
 
@@ -65,7 +74,7 @@
     <main class="dash-right">
       <div class="container_bemvindo">
         <div class="bemvindo_content">
-          <h4>Feed</h4> 
+          <h3>Feed</h3>
           <h3>Olá,
             <span id="b_usuario">usuário</span>
             !
@@ -74,14 +83,16 @@
         </div>
       </div>
 
-      
       <dialog id="dialog_modal">
         <div class="container_modal">
-          <img src="" alt="">
-
+          <div class="image_wrapper">
+            <img src="" alt="">
+            <div id="div_dadosUsuarioModal"></div>
+            <div class="div_closeModal" onclick="closeModal()">X</div>
+          </div>
         </div>
-        
       </dialog>
+
       <section class="areaCards">
         <div class="grid_container" id="feed_publi">
 
@@ -95,11 +106,13 @@
 </html>
 
 <script>
+  var usuariosCache = []
+  const publicacoesMap = {};
   function enviar() {
     const formData = new FormData();
-    formData.append('foto', foto.files[0])
-    formData.append('nome', nome.value)
-    formData.append('email', email.value)
+    formData.append('foto', foto.files[0]);
+    formData.append('nome', nome.value);
+    formData.append('email', email.value);
 
     fetch("/publicacao/cadastro", {
       method: "POST",
@@ -134,7 +147,12 @@
               var feed = ``;
               var icone = ``;
 
+              resposta.forEach(pub => {
+                publicacoesMap[pub.idPublicacao] = pub;
+              });
+
               resposta.forEach(element => {
+                usuariosCache[element.idPublicacao] = resposta
                 aleatorio = parseInt(Math.random() * 3 + 1);
                 if (aleatorio == 1) {
                   estilo = 'card_small';
@@ -206,11 +224,11 @@
           const classesToRemove = ['far', 'fa-heart'];
 
           classesToRemove.forEach(classe => {
-            icones.classList.remove(classe)  
+            icones.classList.remove(classe)
           });
 
           classesToAdd.forEach(classe => {
-            icones.classList.add(classe)  
+            icones.classList.add(classe)
           });
 
           icones.setAttribute('onclick', `descurtir(${idPubli})`);
@@ -239,7 +257,7 @@
         idPubliServer: idPubliVar,
       }),
     })
-    .then(function (resposta) {
+      .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
@@ -249,11 +267,11 @@
           // console.log(icones.event.target)
           // if () {
           classesToRemove.forEach(classe => {
-            icones.classList.remove(classe)  
+            icones.classList.remove(classe)
           });
 
           classesToAdd.forEach(classe => {
-            icones.classList.add(classe)  
+            icones.classList.add(classe)
           });
 
           icones.setAttribute('onclick', `curtir(${idPubli})`);
@@ -269,21 +287,29 @@
     return false;
   }
 
- function openModal(event){
-  const card = event.target.closest('.card');
+  function openModal(event) {
+    const card = event.target.closest('.card');
+    var publicacaoId = card.dataset.publicacaoId;
+    var public = usuariosCache[publicacaoId]
+    const publicacao = publicacoesMap[publicacaoId]
 
-  var publicacaoId = card.dataset.publicacaoId;
+    div_dadosUsuarioModal.innerHTML = ` <span>@${publicacao.nickName}</span> <span>${publicacao.data}</span>
+    `
 
-  console.log('openModal ' + publicacaoId)
+    // Acessa a imagem dentro do card
+    const imgSrc = card.querySelector('.img_feed').src;
 
-  // Acessa a imagem dentro do card
-  const imgSrc = card.querySelector('.img_feed').src;
+    const modal = document.getElementById('dialog_modal');
+    const modalImage = modal.querySelector('img');
 
-  const modal = document.getElementById('dialog_modal');
-  const modalImage = modal.querySelector('img');
-  // console.log(imgSrc)
-  modalImage.src = imgSrc;
+    modalImage.src = imgSrc;
 
-  modal.showModal();
- }
+    modal.showModal();
+  }
+
+  function closeModal() {
+    console.log('estou no fechar modal')
+    const modal = document.getElementById('dialog_modal');
+    modal.close();
+  }
 </script>
