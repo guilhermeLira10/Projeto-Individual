@@ -74,7 +74,7 @@ function buscarFrequenciaCurtida() {
         FROM curtida
         WHERE dtCurtida >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
         GROUP BY dia
-        order by dia desc;
+        order by dia asc;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
