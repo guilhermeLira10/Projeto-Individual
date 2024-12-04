@@ -9,6 +9,41 @@ function exibirErro(mensagem) {
         mensagem_erro.textContent = "";
     }, 5000);
 }
+function validarFormulario(favorito, nome, username, email, senha, confirmacaoSenha) {
+    let mensagemErro;
+
+    mensagemErro = validarNome(nome);
+    if (mensagemErro) {
+        exibirErro(mensagemErro);
+        return false;
+    }
+
+    mensagemErro = validarEmail(email);
+    if (mensagemErro) {
+        exibirErro(mensagemErro);
+        return false;
+    }
+
+    mensagemErro = validarSenha(senha);
+    if (mensagemErro) {
+        exibirErro(mensagemErro);
+        return false;
+    }
+
+    mensagemErro = validarConfirmacaoSenha(senha, confirmacaoSenha);
+    if (mensagemErro) {
+        exibirErro(mensagemErro);
+        return false;
+    }
+
+    mensagemErro = validarFavorito(favorito);
+    if (mensagemErro) {
+        exibirErro(mensagemErro);
+        return false;
+    }
+
+    return true; 
+}
 
 function validarFormularioFoto(arquivo) {
     var termina_png = arquivo.endsWith('.png');
@@ -51,41 +86,6 @@ function validarFormularioLogin(email, senha) {
     return true; 
 }
 
-function validarFormulario(favorito, nome, username, email, senha, confirmacaoSenha) {
-    let mensagemErro;
-
-    mensagemErro = validarNome(nome);
-    if (mensagemErro) {
-        exibirErro(mensagemErro);
-        return false;
-    }
-
-    mensagemErro = validarEmail(email);
-    if (mensagemErro) {
-        exibirErro(mensagemErro);
-        return false;
-    }
-
-    mensagemErro = validarSenha(senha);
-    if (mensagemErro) {
-        exibirErro(mensagemErro);
-        return false;
-    }
-
-    mensagemErro = validarConfirmacaoSenha(senha, confirmacaoSenha);
-    if (mensagemErro) {
-        exibirErro(mensagemErro);
-        return false;
-    }
-
-    mensagemErro = validarFavorito(favorito);
-    if (mensagemErro) {
-        exibirErro(mensagemErro);
-        return false;
-    }
-
-    return true; 
-}
 
 function validarNome(nome) {
     if (nome.trim() === "") {
