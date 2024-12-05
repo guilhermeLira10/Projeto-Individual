@@ -657,7 +657,7 @@ select:focus {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 40px;
+  padding: 0 50px;
 }
 
 .login-info h2 {
@@ -796,6 +796,7 @@ select:focus {
 .btn-outline:hover {
   background-color: #304875;
   color: #fff;
+  border: solid 2px transparent !important;
   transition: 0.3s;
 }
 

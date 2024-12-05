@@ -18,6 +18,13 @@ function validarFormulario(favorito, nome, username, email, senha, confirmacaoSe
         return false;
     }
 
+    
+    mensagemErro = validarNome(username);
+    if (mensagemErro) {
+        exibirErro(mensagemErro);
+        return false;
+    }
+
     mensagemErro = validarEmail(email);
     if (mensagemErro) {
         exibirErro(mensagemErro);
@@ -72,16 +79,18 @@ function validarFormularioFoto(arquivo) {
 }
 
 function validarFormularioLogin(email, senha) {
-    let mensagemErro;
+    let mensagemErro = '';
     mensagemErro = validarEmail(email);
+    if (senha.trim() === "") {
+        // exibirErro("A senha não pode estar vazia.");
+
+        mensagemErro += "A senha não pode estar vazia. ";
+    }
     if (mensagemErro) {
         exibirErro(mensagemErro);
         return false;
     }
 
-    if (senha.trim() === "") {
-        exibirErro("A senha não pode estar vazia.");
-    }
 
     return true; 
 }
@@ -89,10 +98,10 @@ function validarFormularioLogin(email, senha) {
 
 function validarNome(nome) {
     if (nome.trim() === "") {
-        return "O nome não pode estar vazio.";
+        return "Por favor, informe seu nome ou nome de usuário.";
     } else if (nome.length <= 2) {
-        return "O nome deve ter mais de 2 caractere.";
-    }
+        return "O nome ou o nome de usuário deve ter mais de 2 caracteres.";
+    } 
     return ""; 
 }
 
@@ -100,24 +109,23 @@ function validarEmail(email) {
     var termina_com = email.endsWith('.com');
     var termina_br = email.endsWith('.br');
     var termina_school = email.endsWith('.school');
-    
     if (email.trim() === "") {
-        return "O e-mail não pode estar vazio.";
+        return "Por favor, informe seu e-mail para podermos continuar.";
     } else if (!email.includes("@") || !email.includes(".")) {
-        return "E-mail inválido! Deve conter '@' e '.'";
+        return "Parece que o e-mail está incorreto. Certifique-se de incluir '@' e '.' (ponto).";
     } else if(!termina_com && termina_br == false && termina_school == false){
-        return `O Email Não termina com ".com" e nem com ".br"`;
+        return "O e-mail precisa terminar com '.com' ou '.br'.";
     }
     return "";
 }
 
 function validarSenha(senha) {
     if (senha.trim() === "") {
-        return "A senha não pode estar vazia.";
+        return "A senha não pode ficar vazia. Por favor, crie uma senha.";
     }
 
     if (senha.length < 6) {
-        return "A senha deve ter pelo menos 6 caracteres.";
+        return "A senha precisa ter pelo menos 6 caracteres. Tente uma senha um pouco mais longa.";
     }
 
     let possuiNumero = false;
@@ -128,22 +136,18 @@ function validarSenha(senha) {
     for (let i = 0; i < senha.length; i++) {
         let char = senha[i];
 
-        // Verifica se é um número
         if (!isNaN(char) && char !== ' ') {
             possuiNumero = true;
         }
 
-        // Verifica se é uma letra maiúscula
         if (char >= 'A' && char <= 'Z') {
             possuiMaiusculo = true;
         }
 
-        // Verifica se é uma letra minúscula
         if (char >= 'a' && char <= 'z') {
             possuiMinusculo = true;
         }
 
-        // Verifica se é um caractere especial
         if (
             (char >= '!' && char <= '/') ||
             (char >= ':' && char <= '@') ||
@@ -154,36 +158,34 @@ function validarSenha(senha) {
         }
     }
 
-    // Verifica se todos os requisitos foram atendidos
     if (!possuiNumero) {
-        return "A senha deve conter pelo menos 1 número.";
+        return "Que tal adicionar um número à sua senha? Isso a deixará mais segura.";
     }
     if (!possuiMaiusculo) {
-        return "A senha deve conter pelo menos 1 letra maiúscula.";
+        return "Inclua pelo menos uma letra maiúscula na sua senha.";
     }
     if (!possuiMinusculo) {
-        return "A senha deve conter pelo menos 1 letra minúscula.";
+        return "Não se esqueça de adicionar uma letra minúscula na senha.";
     }
     if (!possuiEspecial) {
-        return "A senha deve conter pelo menos 1 caractere especial.";
+        return "Uma letra ou símbolo especial vai deixar sua senha mais segura!";
     }
 
-    // Se todos os requisitos foram atendidos
     return '';
 }
 
 function validarConfirmacaoSenha(senha, confirmacaoSenha) {
     if (confirmacaoSenha.trim() === "") {
-        return "A confirmação de senha não pode estar vazia.";
+        return "Por favor, confirme sua senha.";
     } else if (senha !== confirmacaoSenha) {
-        return "As senhas não coincidem.";
+        return "As senhas não coincidem. Por favor, tente novamente.";
     }
     return "";
 }
 
 function validarFavorito(favorito) {
     if (favorito === "#" || favorito.trim() === "") {
-        return "Selecione uma opção válida para o campo favorito.";
+        return "Selecione uma opção válida no campo favorito para continuar.";
     }
     return "";
 }
