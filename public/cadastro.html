@@ -36,7 +36,7 @@
           </div>
           <div class="campo">
             <!-- <span>Username:</span> -->
-            <input id="username_input" type="text" placeholder="Nome de usuario" />
+            <input id="username_input" type="text" placeholder="@ de usuario" />
           </div>
           <div class="campo">
             <!-- <span>E-mail:</span> -->
@@ -45,11 +45,11 @@
           <div class="campo_senha">
             <div class="campo">
               <!-- <span>Senha:</span> -->
-              <input id="senha_input" type="password" placeholder="******" />
+              <input id="senha_input" type="password" placeholder="Senha" />
             </div>
             <div class="campo">
               <!-- <span>Confirmar Senha:</span> -->
-              <input id="confirmacao_senha_input" type="password" placeholder="******" />
+              <input id="confirmacao_senha_input" type="password" placeholder="Confirmar Senha" />
             </div>
           </div>
 
@@ -69,7 +69,7 @@
           </div>
           <button class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
         </div>
-        <span>Ja tem uma conta ? <b onclick="window.location = './login.html'" style="cursor: pointer;">Entrar</b></span>
+        <span>Ja tem uma conta ? <b onclick="window.location = './login.html'"  class="buttonEntrarCadastrar">Entrar</b></span>
         <div id="div_aguardar" class="loading-div">
           <img src="./assets/circle-loading.gif" id="loading-gif" />
         </div>
@@ -104,52 +104,7 @@
     if (!validarFormulario(favorito, nomeVar, usernameVar, emailVar, senhaVar, confirmacaoSenhaVar)) {
         return false;
     }
-    // if (
-    //   nomeVar == "" ||
-    //   usernameVar == "" ||
-    //   emailVar == "" ||
-    //   senhaVar == "" ||
-    //   confirmacaoSenhaVar == "" ||
-    //   favorito == ""
-    // ) {
-    //   cardErro.style.display = "block";
-    //   mensagem_erro.innerHTML =
-    //     "(Mensagem de erro para todos os campos em branco)";
 
-    //   finalizarAguardar();
-    //   return false;
-
-    // } else if (nomeVar.length <= 1) {
-    //   cardErro.style.display = "block";
-    //   mensagem_erro.innerHTML = "(Nome invalido)"
-    //   finalizarAguardar();
-    //   return false;
-
-    // } else if (!emailVar.includes("@") || !emailVar.includes(".")) {
-    //   cardErro.style.display = "block";
-    //   mensagem_erro.innerHTML = "(E-mail invalido! deve conter '@' e ''.')";
-    //   finalizarAguardar();
-    //   return false;
-    // } else if (senhaVar.length < 6) {
-    //   cardErro.style.display = "block";
-    //   mensagem_erro.innerHTML = "(Senha invalida!A senha deve ter ao menos 6 caracteres)";
-    //   finalizarAguardar();
-    //   return false;
-    // } else if (confirmacaoSenhaVar != senhaVar) {
-    //   cardErro.style.display = "block";
-    //   mensagem_erro.innerHTML = "(As senhas não são iguais)";
-    //   finalizarAguardar();
-    //   return false;
-    // } else if (favorito == "#") {
-    //   cardErro.style.display = "block";
-    //   mensagem_erro.innerHTML = "(Selecione seu golf favorito)";
-    //   finalizarAguardar();
-    //   return false;
-    // } else {
-    //   setInterval(sumirMensagem, 5000);
-    // }
-
-    // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {

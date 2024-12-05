@@ -821,3 +821,12 @@ select:focus {
 
   cursor: pointer;
 }
+
+.buttonEntrarCadastrar{
+  cursor: pointer;
+  border-bottom: solid 1px transparent;
+}
+
+.buttonEntrarCadastrar:hover{
+  border-bottom: solid 1px #12254A;
+}
