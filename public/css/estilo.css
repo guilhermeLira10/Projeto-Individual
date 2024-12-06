@@ -536,8 +536,11 @@ li.item_timeline {
 }
 
 .redes-sociais {
+  width: 19%;
   display: flex;
   gap: 24px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 /* LOGIN */
