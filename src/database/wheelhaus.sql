@@ -12,6 +12,9 @@ CREATE TABLE usuario (
 
 ALTER TABLE usuario ADD COLUMN nickName VARCHAR(45);
 
+ALTER TABLE usuario  MODIFY COLUMN nickName VARCHAR(45) UNIQUE;
+ALTER TABLE usuario  MODIFY COLUMN email VARCHAR(45) UNIQUE;
+
 CREATE TABLE publicacao (
   idPublicacao INT AUTO_INCREMENT,
   imgPublicada VARCHAR(200),
@@ -200,3 +203,7 @@ INSERT INTO score (pontos, fkUsuario, dtScore) VALUES
 
 select * from score order by pontos;
 
+select * from usuario  where nickName = 'GuiLira';
+
+update publicacao set dtpublicacao = '2024-12-04 14:39:40'
+where idPublicacao = 4;
